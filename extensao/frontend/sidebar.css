@@ -4,11 +4,17 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 10px;
-  background-color: #f4f4f4;
+  background-color: #bbdfff;
 }
 
 #sidebar-container {
   max-width: 300px;
+}
+
+.kauadima3 {
+  background-color: #d34bc5;
+  height: 400px;
+  font-size: 75px;
 }
 
 h1 {
