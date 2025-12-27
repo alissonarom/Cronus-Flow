@@ -1,20 +1,17 @@
 {
   "manifest_version": 3,
   "name": "Cronus Flow",
-  "description": "Mentor de vendas em tempo real para WhatsApp Web",
   "version": "0.1.0",
-  "permissions": [
-    "activeTab",
-    "scripting"
-  ],
-  "host_permissions": [
-    "https://web.whatsapp.com/*",
-    "http://localhost:3000/*"
-  ],
+  "description": "Mentor de vendas em tempo real para WhatsApp Web",
+  "permissions": ["sidePanel"],
+  "host_permissions": ["https://web.whatsapp.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
     "default_title": "Abrir Cronus Flow"
   },
-  "background": {
-    "service_worker": "background.js"
+  "side_panel": {
+    "default_path": "sidebar.html"
   }
 }
