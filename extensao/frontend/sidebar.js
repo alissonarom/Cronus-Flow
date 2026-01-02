@@ -1,41 +1,104 @@
-const API_URL = 'http://localhost:3000/v1/analyze';
-const API_KEY = 'cf_demo_key';
+import { analyzeMessage, sendFeedbackApi } from './api.js';
+import { lastAnalysis, setLastAnalysis } from './state.js';
+import { registerFeedback } from './animations.js';
+import { initProgress } from './animations.js';
 
-document.getElementById('analyze').addEventListener('click', async () => {
-  const message = document.getElementById('leadMessage').value.trim();
-  const resultEl = document.getElementById('result');
+document.addEventListener('DOMContentLoaded', () => {
+initProgress();
+const input = document.getElementById('leadInput');
+const result = document.getElementById('result');
+const status = document.getElementById('status');
+const loading = document.getElementById('loading');
+const feedback = document.getElementById('feedback');
 
-  if (!message) {
-    resultEl.textContent = 'Cole uma mensagem primeiro.';
+const progressLabel = document.getElementById('progressLabel');
+const progressFill = document.getElementById('progressFill');
+
+  if (!progressLabel || !progressFill) {
+    console.warn('[Cronus] Progress UI not found');
     return;
   }
 
-  resultEl.textContent = 'Analisando...';
+document.getElementById('analyzeBtn').addEventListener('click', async () => {
+  if (!input.value.trim()) {
+    status.innerText = 'Cole uma mensagem primeiro.';
+    return;
+  }
+
+  loading.classList.remove('hidden');
+  status.innerText = 'Analisando...';
+  result.value = '';
 
   try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${API_KEY}`
-      },
-      body: JSON.stringify({
-        leadMessage: message,
-        channel: 'whatsapp-web',
-        language: 'pt-BR'
-      })
+    const data = await analyzeMessage(input.value);
+
+    result.value = data.reply;
+    status.innerText = 'Sugestão pronta ✔';
+    feedback.classList.remove('hidden');
+
+    setLastAnalysis({
+      leadMessage: input.value,
+      reply: data.reply,
+      channel: 'whatsapp-web'
     });
 
-    if (!res.ok) {
-      throw new Error(`Erro ${res.status}`);
-    }
-
-    const data = await res.json();
-
-    resultEl.textContent =
-      data?.suggestions?.join('\n\n') ||
-      JSON.stringify(data, null, 2);
-  } catch (err) {
-    resultEl.textContent = 'Erro ao gerar sugestão.';
+  } catch {
+    status.innerText = 'Erro ao gerar sugestão';
+  } finally {
+    loading.classList.add('hidden');
   }
+});
+
+async function sendFeedback(converted) {
+  if (!lastAnalysis.reply) return;
+
+  status.innerText = 'Enviando feedback...';
+
+  try {
+    await sendFeedbackApi({
+      ...lastAnalysis,
+      converted
+    });
+
+    registerFeedback();
+    status.innerText = 'Feedback registrado ✔';
+  } catch {
+    status.innerText = 'Erro ao enviar feedback';
+  }
+}
+
+document.getElementById('feedbackYes')
+  .addEventListener('click', () => sendFeedback(true));
+
+document.getElementById('feedbackNo')
+  .addEventListener('click', () => sendFeedback(false));
+
+const toggleThemeBtn = document.getElementById('toggleTheme');
+  const html = document.documentElement;
+
+  if (!toggleThemeBtn) {
+    console.warn('[Cronus] Toggle theme button not found');
+    return;
+  }
+
+  // 🔁 carregar tema salvo
+  const savedTheme = localStorage.getItem('cronus-theme');
+  if (savedTheme) {
+    html.setAttribute('data-theme', savedTheme);
+  }
+
+  toggleThemeBtn.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('cronus-theme', next);
+
+    // micro feedback visual opcional
+    toggleThemeBtn.classList.add('copy-success');
+    setTimeout(() => {
+      toggleThemeBtn.classList.remove('copy-success');
+    }, 300);
+  });
+
 });

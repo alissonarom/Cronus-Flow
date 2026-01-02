@@ -1,37 +1,63 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <title>Cronus Flow</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 12px;
-    }
-    textarea {
-      width: 100%;
-      height: 120px;
-    }
-    button {
-      margin-top: 8px;
-      width: 100%;
-    }
-    pre {
-      white-space: pre-wrap;
-      margin-top: 12px;
-      background: #f5f5f5;
-      padding: 8px;
-    }
-  </style>
+  <link rel="stylesheet" href="sidebar.css" />
 </head>
 <body>
-  <h3>Cronus Flow</h3>
+  <div class="app flow-body">
 
-  <textarea id="leadMessage" placeholder="Cole a mensagem do cliente aqui"></textarea>
-  <button id="analyze">Analisar</button>
+  <header class="flow-header">
+    <div class="header-left">
+      <span class="status-dot online"></span>
+      <span class="status-text">IA ativa</span>
+    </div>
 
-  <pre id="result"></pre>
+    <div class="header-right">
+      <button id="toggleTheme" class="icon-btn">🌗</button>
+    </div>
+  </header>
 
-  <script src="sidebar.js"></script>
+    <section class="card">
+      <label>Mensagem do cliente</label>
+      <textarea id="leadInput" placeholder="Cole aqui a mensagem do cliente..."></textarea>
+    </section>
+
+    <button id="analyzeBtn" class="primary-btn">
+      Gerar melhor resposta
+    </button>
+
+    <div id="loading" class="loading hidden">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <p id="status" class="status-text"></p>
+
+    <section class="card">
+      <label>Resposta sugerida</label>
+      <textarea id="result" readonly placeholder="A resposta da IA aparecerá aqui..."></textarea>
+      <div id="feedback" class="feedback hidden">
+        <span>Essa resposta ajudou a fechar a venda?</span>
+        <button id="feedbackYes">👍 Sim</button>
+        <button id="feedbackNo">👎 Não</button>
+      </div>
+
+
+      <button id="copyBtn" class="secondary-btn">
+        Copiar resposta
+      </button>
+    </section>
+
+  </div>
+  <div class="flow-progress">
+  <div class="progress-bar">
+    <div id="progressFill"></div>
+  </div>
+  <span id="progressLabel">Nível de maturidade do seu Flow (0/100)</span>
+</div>
+  <script type="module" src="sidebar.js"></script>
 </body>
 </html>

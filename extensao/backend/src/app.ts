@@ -1,22 +1,15 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import rateLimit from '@fastify/rate-limit';
-import Redis from 'ioredis';
 import { analyzeRoute } from './routes/analyze.js';
+import { feedbackRoute } from './routes/feedback.js';
 
-export function buildApp() {
+export async function buildApp() {
   const app = Fastify({ logger: true });
 
-  app.register(cors, { origin: true });
+  await app.register(cors, { origin: true });
 
-  const redis = new Redis({
-    host: process.env.REDIS_HOST || 'localhost',
-    port: Number(process.env.REDIS_PORT) || 6379,
-    password: process.env.REDIS_PASSWORD
-  });
-
-  app.register(rateLimit, {
-    redis,
+  await app.register(rateLimit, {
     max: 30,
     timeWindow: '1 hour',
     keyGenerator: (req) => {
@@ -30,7 +23,8 @@ export function buildApp() {
     }
   });
 
-  app.register(analyzeRoute, { prefix: '/v1' });
+  await app.register(analyzeRoute, { prefix: '/v1' });
+  await app.register(feedbackRoute, { prefix: '/v1' });
 
   return app;
 }

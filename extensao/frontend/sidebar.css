@@ -1,31 +1,331 @@
-/* Styles for Cronus Flow sidebar */
+html {
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
+}
+
+* {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+:root {
+  --radius: 16px;
+  --transition: 0.2s ease;
+  --text-muted: var(--muted);
+}
+
+/* ===== DARK ===== */
+[data-theme="dark"] {
+  --bg: #0b0e17;
+  --surface: #12162a;
+  --border: rgba(138, 92, 246, 0.35);
+  --primary: #8a5cf6;
+  --secondary: #4cc9f0;
+  --text: #ffffff;
+  --muted: #a0a4c0;
+}
+
+/* ===== LIGHT ===== */
+[data-theme="light"] {
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --border: #e1e3f0;
+  --primary: #6c4cf6;
+  --secondary: #3abff8;
+  --text: #0e1020;
+  --muted: #5a5f7a;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Inter, system-ui, sans-serif;
+}
 
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app {
+  padding-inline: 16px;
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  justify-content: space-between;
+}
+
+.status {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 14px;
+  border: 1px solid var(--border);
+  box-shadow: 0 0 24px rgba(138, 92, 246, 0.15);
+}
+
+label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+textarea {
+  width: 100%;
+  margin-top: 8px;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  resize: none;
+  outline: none;
+  min-height: 90px;
+}
+
+#result {
+  min-height: 110px;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border: none;
+  color: #fff;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.primary-btn:hover {
+  opacity: 0.9;
+}
+
+.secondary-btn {
+  margin-top: 8px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
   padding: 10px;
-  background-color: #bbdfff;
+  border-radius: 12px;
+  cursor: pointer;
 }
 
-#sidebar-container {
-  max-width: 300px;
+.status-text {
+  font-size: 12px;
+  color: var(--muted);
+  min-height: 16px;
 }
 
-.kauadima3 {
-  background-color: #d34bc5;
-  height: 400px;
-  font-size: 75px;
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(138, 92, 246, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
 }
 
-h1 {
-  color: #333;
-  font-size: 18px;
+.theme-toggle:hover {
+  box-shadow: 0 0 18px rgba(138, 92, 246, 0.45);
 }
 
-p {
-  color: #666;
+.theme-toggle:active {
+  transform: scale(0.92);
 }
 
-#content {
-  margin-top: 20px;
+.theme-toggle .icon {
+  font-size: 16px;
+  transition: transform 0.35s ease;
 }
+
+[data-theme="dark"] .theme-toggle {
+  box-shadow: 0 0 16px rgba(138, 92, 246, 0.45);
+}
+
+[data-theme="light"] .theme-toggle {
+  box-shadow: 0 0 16px rgba(76, 201, 240, 0.45);
+}
+
+.copy-success {
+  animation: pop 0.35s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.95); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.loading {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.loading span {
+  width: 6px;
+  height: 6px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-radius: 50%;
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+.loading span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.loading span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes pulse {
+  0%, 80%, 100% {
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+button {
+  font-weight: 600;
+}
+
+.feedback {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.feedback button {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.feedback button:hover {
+  background: var(--surface-hover);
+}
+
+.hidden {
+  display: none;
+}
+
+.flow-header {
+  height: 48px;
+  background-color: transparent;
+  display: flex;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-center {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.logo {
+  width: 18px;
+  opacity: 0.9;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.flow-body {
+  background: url('./assets/bg-flow.png');
+  background-repeat: round;
+}
+
+.flow-progress {
+  margin-top: 12px;
+}
+
+.progress-bar {
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#progressFill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #4f46e5, #9333ea);
+  transition: width 0.4s ease;
+}
+
+.feedback-btn:active {
+  transform: scale(0.96);
+}
+
+.feedback-btn.success {
+  background: rgba(34,197,94,0.15);
+}
+
+.feedback-btn.fail {
+  background: rgba(239,68,68,0.15);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-dot.online {
+  background: #22c55e;
+  box-shadow: 0 0 6px rgba(34,197,94,0.8);
+}
+

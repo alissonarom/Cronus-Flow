@@ -1,46 +1,13 @@
-// (() => {
-//   if (window.__CRONUS_FLOW_LOADED__) {
-//     const existing = document.getElementById('cronus-flow-sidebar');
-//     if (existing) {
-//       existing.remove();
-//     }
-//     return;
+// function getLastClientMessage() {
+//   const messages = document.querySelectorAll('[data-testid="msg-container"]');
+
+//   for (let i = messages.length - 1; i >= 0; i--) {
+//     const msg = messages[i];
+//     const isIncoming = !msg.querySelector('[data-testid="msg-check"]');
+//     if (isIncoming) return msg.innerText.trim();
 //   }
 
-//   window.__CRONUS_FLOW_LOADED__ = true;
+//   return null;
+// }
 
-//   const IS_LOCAL = true;
-
-//   const SIDEBAR_ID = 'cronus-flow-sidebar';
-//   const API_URL = IS_LOCAL
-//     ? 'http://localhost:3000/v1/analyze'
-//     : 'https://api.cronusflow.com/v1/analyze';
-
-//   const API_KEY = 'cf_demo_key';
-
-//   function toggleSidebar() {
-//     const iframe = document.createElement('iframe');
-//     iframe.id = SIDEBAR_ID;
-//     iframe.src = chrome.runtime.getURL('sidebar.html');
-
-// // iframe.setAttribute(
-// //     'sandbox',
-// //     'allow-scripts allow-same-origin allow-forms allow-popups'
-// //   );
-
-//     iframe.style.cssText = `
-//       position: fixed;
-//       top: 0;
-//       right: 0;
-//       width: 25%;
-//       height: 100vh;
-//       z-index: 9999;
-//       border: none;
-//       background: #fff;
-//     `;
-
-//     document.body.appendChild(iframe);
-//   }
-
-//   toggleSidebar();
-// })();
+// getLastClientMessage();
