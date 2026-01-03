@@ -32,7 +32,7 @@ export async function buildApp() {
 
   await app.register(analyzeRoute, { prefix: '/v1' });
   await app.register(feedbackRoute, { prefix: '/v1' });
-  await app.register(healthRoute, { prefix: '/health' });
+  await app.register(healthRoute, { prefix: '/' });
 
   return app;
 }
