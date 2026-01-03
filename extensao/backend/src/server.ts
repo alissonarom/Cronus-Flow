@@ -1,7 +1,7 @@
 import 'dotenv/config';
 
-import { connectMongo } from './db/mongo';
-import { ensureFeedbacksCollection } from './db/initTimeSeries';
+import { connectMongo } from './db/mongo.js';
+import { ensureFeedbacksCollection } from './db/initTimeSeries.js';
 
 import { buildApp } from './app.js';
 
