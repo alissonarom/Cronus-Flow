@@ -13,7 +13,7 @@ async function test() {
     ]
   });
 
-  console.log(res.choices[0].message.content);
+  console.log('res.choices[0].message.content');
 }
 
 test();
