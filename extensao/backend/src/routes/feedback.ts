@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import { connectMongo } from '../db/mongo';
+import { connectMongo } from '../db/mongo.js';
 
 export async function feedbackRoute(app: FastifyInstance) {
   app.post('/feedback', async (req, reply) => {
