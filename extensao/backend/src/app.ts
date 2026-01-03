@@ -7,7 +7,13 @@ import { feedbackRoute } from './routes/feedback.js';
 export async function buildApp() {
   const app = Fastify({ logger: true });
 
-  await app.register(cors, { origin: true });
+  await app.register(cors, { 
+    origin: (origin, cb) => {
+      if (!origin) return cb(null, true); // side panel
+      if (origin.startsWith('chrome-extension://')) return cb(null, true);
+      cb(new Error('Not allowed'), false);
+    }
+  });
 
   await app.register(rateLimit, {
     max: 30,
@@ -25,6 +31,9 @@ export async function buildApp() {
 
   await app.register(analyzeRoute, { prefix: '/v1' });
   await app.register(feedbackRoute, { prefix: '/v1' });
+  app.get('/health', async () => {
+    return { status: 'ok' };
+  });
 
   return app;
 }

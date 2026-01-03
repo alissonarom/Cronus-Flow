@@ -10,7 +10,9 @@ const result = document.getElementById('result');
 const status = document.getElementById('status');
 const loading = document.getElementById('loading');
 const feedback = document.getElementById('feedback');
-
+const toggleBtn = document.getElementById('toggleTheme');
+const html = document.documentElement;
+const icon = toggleBtn.querySelector('.icon');
 const progressLabel = document.getElementById('progressLabel');
 const progressFill = document.getElementById('progressFill');
 
@@ -74,7 +76,6 @@ document.getElementById('feedbackNo')
   .addEventListener('click', () => sendFeedback(false));
 
 const toggleThemeBtn = document.getElementById('toggleTheme');
-  const html = document.documentElement;
 
   if (!toggleThemeBtn) {
     console.warn('[Cronus] Toggle theme button not found');
@@ -94,11 +95,14 @@ const toggleThemeBtn = document.getElementById('toggleTheme');
     html.setAttribute('data-theme', next);
     localStorage.setItem('cronus-theme', next);
 
+    icon.textContent = next === 'dark' ? '🌙' : '☀️';
+    toggleBtn.classList.add('animate');
+
     // micro feedback visual opcional
     toggleThemeBtn.classList.add('copy-success');
     setTimeout(() => {
       toggleThemeBtn.classList.remove('copy-success');
-    }, 300);
+    }, 500);
   });
 
 });

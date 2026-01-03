@@ -6,58 +6,59 @@
   <link rel="stylesheet" href="sidebar.css" />
 </head>
 <body>
-  <div class="app flow-body">
+  <div class="flow-root">
+    <div class="flow-content">
+      <section class="card">
+        <label>Mensagem do cliente</label>
+        <textarea id="leadInput" placeholder="Cole aqui a mensagem do cliente..."></textarea>
+      </section>
 
-  <header class="flow-header">
-    <div class="header-left">
-      <span class="status-dot online"></span>
-      <span class="status-text">IA ativa</span>
-    </div>
+      <button id="analyzeBtn" class="primary-btn">
+        Gerar melhor resposta
+      </button>
 
-    <div class="header-right">
-      <button id="toggleTheme" class="icon-btn">🌗</button>
-    </div>
-  </header>
-
-    <section class="card">
-      <label>Mensagem do cliente</label>
-      <textarea id="leadInput" placeholder="Cole aqui a mensagem do cliente..."></textarea>
-    </section>
-
-    <button id="analyzeBtn" class="primary-btn">
-      Gerar melhor resposta
-    </button>
-
-    <div id="loading" class="loading hidden">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-
-    <p id="status" class="status-text"></p>
-
-    <section class="card">
-      <label>Resposta sugerida</label>
-      <textarea id="result" readonly placeholder="A resposta da IA aparecerá aqui..."></textarea>
-      <div id="feedback" class="feedback hidden">
-        <span>Essa resposta ajudou a fechar a venda?</span>
-        <button id="feedbackYes">👍 Sim</button>
-        <button id="feedbackNo">👎 Não</button>
+      <div id="loading" class="loading hidden">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
 
+      <p id="status" class="status-text"></p>
 
-      <button id="copyBtn" class="secondary-btn">
-        Copiar resposta
-      </button>
-    </section>
+      <section class="card">
+        <label>Resposta sugerida</label>
+        <textarea id="result" readonly placeholder="A resposta da IA aparecerá aqui..."></textarea>
+        <div class="feedback-container">
+          <button id="copyBtn" class="secondary-btn">
+            Copiar resposta
+          </button>
+          <div id="feedback" class="feedback hidden">
+            <span>A resposta ajudou?</span>
+            <button id="feedbackYes">👍</button>
+            <button id="feedbackNo">👎</button>
+          </div>
+        </div>
+      </section>
 
+    </div>
+    <footer class="flow-footer">
+      <div class="container-footer">
+        <div class="header-left">
+          <span class="status-dot online"></span>
+          <span class="status-text">IA ativa</span>
+        </div>
+        <div class="header-right">
+          <button id="toggleTheme" class="icon-btn theme-toggle"><span class="icon">🌙</span></button>
+        </div>
+      </div>
+      <div class="flow-progress">
+        <div class="progress-bar">
+          <div id="progressFill"></div>
+        </div>
+        <span class="progress-label" id="progressLabel">Nível de maturidade do seu Flow (0/100)</span>
+      </div>
+    </footer>
+    <script type="module" src="sidebar.js"></script>
   </div>
-  <div class="flow-progress">
-  <div class="progress-bar">
-    <div id="progressFill"></div>
-  </div>
-  <span id="progressLabel">Nível de maturidade do seu Flow (0/100)</span>
-</div>
-  <script type="module" src="sidebar.js"></script>
 </body>
 </html>
