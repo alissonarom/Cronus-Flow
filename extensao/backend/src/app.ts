@@ -3,6 +3,7 @@ import cors from '@fastify/cors';
 import rateLimit from '@fastify/rate-limit';
 import { analyzeRoute } from './routes/analyze.js';
 import { feedbackRoute } from './routes/feedback.js';
+import { healthRoute } from './routes/health.js';
 
 export async function buildApp() {
   const app = Fastify({ logger: true });
@@ -31,9 +32,7 @@ export async function buildApp() {
 
   await app.register(analyzeRoute, { prefix: '/v1' });
   await app.register(feedbackRoute, { prefix: '/v1' });
-  app.get('/health', async () => {
-    return { status: 'ok' };
-  });
+  await app.register(healthRoute, { prefix: '/health' });
 
   return app;
 }

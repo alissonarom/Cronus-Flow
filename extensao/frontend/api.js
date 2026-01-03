@@ -1,5 +1,7 @@
+const API_BASE = 'https://apps-cronus-flow.ptiotg.easypanel.host';
+
 export async function analyzeMessage(leadMessage) {
-  const res = await fetch('http://localhost:3000/v1/analyze', {
+  const res = await fetch(`${API_BASE}/v1/analyze`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ leadMessage })
@@ -10,7 +12,7 @@ export async function analyzeMessage(leadMessage) {
 }
 
 export async function sendFeedbackApi(payload) {
-  const res = await fetch('http://localhost:3000/v1/feedback', {
+  const res = await fetch(`${API_BASE}/v1/feedback`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
