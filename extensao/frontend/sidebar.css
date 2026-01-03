@@ -354,6 +354,11 @@ button {
   height: 8px;
   border-radius: 50%;
   display: inline-block;
+  margin-right: -4px;
+}
+
+.status-level {
+  margin-right: -8px;
 }
 
 .status-dot.online {
@@ -383,4 +388,11 @@ button {
 
 .theme-toggle.animate .icon {
   transform: rotate(360deg) scale(1.2);
+}
+
+.helpText {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: -12px;
+  text-align: center;
 }
