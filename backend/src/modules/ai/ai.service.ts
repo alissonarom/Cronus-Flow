@@ -73,6 +73,15 @@ export async function generateSalesReply({
           - Foco total em conversão.
           - Nunca entregue apenas análise.
           - Se não houver resposta pronta, reescreva até incluir.
+          ⚠️ FORMATAÇÃO:
+          - Responda apenas em TEXTO PURO.
+          - Não use asteriscos (*)
+          - Não use markdown
+          - Não use negrito
+          - Não use listas com hífen
+          - Não use emojis
+          - Não use qualquer tipo de marcação
+          - Entregue apenas texto simples.
         `
         },
         {
